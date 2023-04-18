@@ -15,4 +15,7 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
     
     @Column({field:'email'})
     email:string;
+    
+    @Column({field:'is_admin'})
+    isAdmin:boolean;
 }

@@ -1,10 +1,12 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Airline } from './schemas/airlines.schema';
 import { Flight } from './schemas/flights.schema';
 import { WhereOptions, InferAttributes, Op } from 'sequelize';
 import { endOfDay, startOfDay } from 'date-fns';
+import { FlightsService } from './flights.service';
+import { AdminGuard } from 'src/auth/guards/admin-jwt-auth.guard';
 
 @Controller('flights')
 export class FlightsController {
@@ -13,9 +15,10 @@ export class FlightsController {
         private airlineModel: typeof Airline,
         @InjectModel(Flight)
         private flightModel: typeof Flight,
+        private readonly flightService: FlightsService
     ) { }
     @UseGuards(JwtAuthGuard)
-    @Get('/')
+    @Get()
     async getFlights(
         @Query('airline') airline?: string,
         @Query('from') from?: string,
@@ -42,5 +45,12 @@ export class FlightsController {
         return {
             flights: flights
         }
+    }
+
+    @UseGuards(JwtAuthGuard, AdminGuard)
+    @Post()
+    async addFlight(
+        @Body() body: Flight) {
+        return this.flightService.createFlight(body)
     }
 }
