@@ -4,18 +4,20 @@ import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { FlightsModule } from './flights/flights.module';
 import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [SequelizeModule.forRoot({
       dialect: 'mysql',
       host: 'localhost',
-      port: 6612,
+      port: 3306,
       username: 'root',
-      // password: 'pass123456',
+      password:'AZKJunaid',
+      // protocol: 'tcp',
       database: 'airx',
       autoLoadModels: true,
       synchronize: true,
-    }), FlightsModule, AuthModule,],
+    }), FlightsModule, AuthModule, UsersModule,],
   controllers: [AppController],
   providers: [AppService],
 })

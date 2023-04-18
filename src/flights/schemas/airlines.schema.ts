@@ -5,7 +5,7 @@ import { Flight } from "./flights.schema";
 export class Airline extends Model {
     @PrimaryKey
     @Column({ field: 'airline_id' })
-    airlineId: string;
+    airlineId: number;
 
     @Column({ field: 'airline_name' })
     airlineName: string;

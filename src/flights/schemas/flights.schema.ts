@@ -1,10 +1,12 @@
-import { BelongsTo, Column, ForeignKey, Model, PrimaryKey } from "sequelize-typescript";
+import { BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
 import { Airline } from "./airlines.schema";
+import { InferAttributes, InferCreationAttributes } from "sequelize";
 
-export class Flight extends Model {
+@Table({tableName:'flight',createdAt:true, updatedAt:true})
+export class Flight extends Model<InferAttributes<Flight>, InferCreationAttributes<Flight>> {
     @PrimaryKey
     @Column({ field: 'flight_id' })
-    flightId: string;
+    flightId: number;
 
     @Column({ field: 'flight_name' })
     flightName: string;
@@ -18,11 +20,11 @@ export class Flight extends Model {
     @Column({ field: 'flight_departure_time' })
     flightDepartureTime: Date;
 
-    @Column({ field: 'flight_depart_location' })
-    flightDepartLocation: string;
+    @Column({ field: 'flight_source' })
+    flightSource: string;
 
-    @Column({ field: 'flight_arrival_location' })
-    flightArrivalLocation: string;
+    @Column({ field: 'flight_destination' })
+    flightDestination: string;
 
     @Column({ field: 'flight_total_seats' })
     flightTotalSeats: number;
