@@ -1,6 +1,7 @@
-import { BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { BelongsTo, Column, ForeignKey, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
 import { Airline } from "./airlines.schema";
 import { InferAttributes, InferCreationAttributes } from "sequelize";
+import { Booking } from "src/booking/schemas/booking.schema";
 
 @Table({tableName:'flight',createdAt:true, updatedAt:true})
 export class Flight extends Model<InferAttributes<Flight>, InferCreationAttributes<Flight>> {
@@ -35,4 +36,7 @@ export class Flight extends Model<InferAttributes<Flight>, InferCreationAttribut
 
     @BelongsTo(() => Airline)
     airline: Airline
+
+    @HasMany(() => Booking)
+    bookings: Booking[]
 }
