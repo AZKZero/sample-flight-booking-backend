@@ -5,6 +5,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { FlightsModule } from './flights/flights.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { BookingModule } from './booking/booking.module';
 
 @Module({
   imports: [SequelizeModule.forRoot({
@@ -12,12 +13,12 @@ import { UsersModule } from './users/users.module';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password:'AZKJunaid',
+      // password:'AZKJunaid',
       // protocol: 'tcp',
       database: 'airx',
       autoLoadModels: true,
       synchronize: true,
-    }), FlightsModule, AuthModule, UsersModule,],
+    }), FlightsModule, AuthModule, UsersModule, BookingModule,],
   controllers: [AppController],
   providers: [AppService],
 })

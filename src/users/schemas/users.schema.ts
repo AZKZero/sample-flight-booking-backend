@@ -1,10 +1,12 @@
 import { InferAttributes, InferCreationAttributes } from "sequelize";
-import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { HasMany, AutoIncrement, Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { Booking } from "src/booking/schemas/booking.schema";
 
 @Table({tableName:'user',createdAt:true, updatedAt:true})
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
     @PrimaryKey
-    @Column({ field: 'id' })
+    @AutoIncrement
+    @Column({ field: 'id'})
     userId: number;
     
     @Column({field:'name'})
@@ -18,4 +20,7 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
     
     @Column({field:'is_admin'})
     isAdmin:boolean;
+
+    @HasMany(() => Booking)
+    bookings: Booking[];
 }
